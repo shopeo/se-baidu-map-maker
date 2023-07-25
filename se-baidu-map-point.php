@@ -48,12 +48,21 @@ add_action( 'init', function () {
 	}
 } );
 
-$plugin_version = get_plugin_data( SE_BAIDU_MAP_POINT_FILE )['Version'];
 
 add_action( 'admin_enqueue_scripts', function () {
-
+	wp_enqueue_style( 'se-baidu-map-point-style', plugins_url( '/assets/css/backend.css', SE_BAIDU_MAP_POINT_FILE ), array(), true );
+	wp_style_add_data( 'se-baidu-map-point-style', 'rtl', 'replace' );
+	wp_enqueue_script( 'se-baidu-map-point-script', plugins_url( 'assets/js/backend.js', SE_BAIDU_MAP_POINT_FILE ), array( 'jquery' ), true );
+	wp_localize_script( 'se-baidu-map-point-script', 'se_baidu_map_point', array(
+		'ajax_url' => admin_url( 'admin-ajax.php' )
+	) );
 } );
 
 add_action( 'wp_enqueue_scripts', function () {
-
+	wp_enqueue_style( 'se-baidu-map-point-frontend-style', plugins_url( '/assets/css/frontend.css', SE_BAIDU_MAP_POINT_FILE ), array(), true );
+	wp_style_add_data( 'se-baidu-map-point-frontend-style', 'rtl', 'replace' );
+	wp_enqueue_script( 'se-baidu-map-point-frontend-script', plugins_url( '/assets/css/frontend.js', SE_BAIDU_MAP_POINT_FILE ), array( 'jquery' ), true );
+	wp_localize_script( 'se-baidu-map-point-frontend-script', 'se_baidu_map_point_frontend', array(
+		'ajax_url' => admin_url( 'admin-ajax.php' )
+	) );
 } );
