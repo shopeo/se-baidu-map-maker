@@ -9,6 +9,10 @@ class SEBaiduMapCore {
 			return;
 		}
 		define( 'SE_Baidu_Map_Core_Loaded', true );
+		add_action( 'admin_menu', array( $this, 'add_page' ) );
+	}
+
+	public function add_page() {
 		$hookname = add_menu_page(
 				__( 'Baidu Map Point', 'se-baidu-map-point' ),
 				__( 'Baidu Map Point', 'se-baidu-map-point' ),
