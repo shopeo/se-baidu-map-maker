@@ -8,7 +8,7 @@ class SEBaiduMapCore {
 		if ( defined( 'SE_Baidu_Map_Core_Loaded' ) ) {
 			return;
 		}
-		defined( 'SE_Baidu_Map_Core_Loaded', true );
+		define( 'SE_Baidu_Map_Core_Loaded', true );
 		$hookname = add_menu_page(
 				__( 'Baidu Map Point', 'se-baidu-map-point' ),
 				__( 'Baidu Map Point', 'se-baidu-map-point' ),
