@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Shopeo\\SeBaiduMapMaker\\' => array($baseDir . '/src'),
+    'Shopeo\\SeBaiduMapPoint\\' => array($baseDir . '/src'),
 );

@@ -4,17 +4,17 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit200ca1cd3a476dd9d85fa9232dad7e39
+class ComposerStaticInit59bfd382a606af05f11a1e545451ad42
 {
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
-            'Shopeo\\SeBaiduMapMaker\\' => 23,
+            'Shopeo\\SeBaiduMapPoint\\' => 23,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Shopeo\\SeBaiduMapMaker\\' => 
+        'Shopeo\\SeBaiduMapPoint\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
@@ -27,9 +27,9 @@ class ComposerStaticInit200ca1cd3a476dd9d85fa9232dad7e39
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit200ca1cd3a476dd9d85fa9232dad7e39::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit200ca1cd3a476dd9d85fa9232dad7e39::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit200ca1cd3a476dd9d85fa9232dad7e39::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit59bfd382a606af05f11a1e545451ad42::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit59bfd382a606af05f11a1e545451ad42::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit59bfd382a606af05f11a1e545451ad42::$classMap;
 
         }, null, ClassLoader::class);
     }

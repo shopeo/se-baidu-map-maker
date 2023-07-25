@@ -1,15 +1,15 @@
 {
-  "name": "shopeo/se-baidu-map-maker",
+  "name": "shopeo/se-baidu-map-point",
   "autoload": {
-    "psr-4": {
-      "Shopeo\\SeBaiduMapMaker\\": "src/"
-    }
+	"psr-4": {
+	  "Shopeo\\SeBaiduMapPoint\\": "src/"
+	}
   },
   "authors": [
-    {
-      "name": "shopeo",
-      "email": "hello@shopeo.cn"
-    }
+	{
+	  "name": "shopeo",
+	  "email": "hello@shopeo.cn"
+	}
   ],
   "require": {}
 }
