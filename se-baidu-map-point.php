@@ -13,7 +13,7 @@
  * Requires PHP: 5.6
  */
 
-use src\SEBaiduMapCore;
+use Shopeo\SeBaiduMapPoint\SEBaiduMapCore;
 
 require_once 'vendor/autoload.php';
 
