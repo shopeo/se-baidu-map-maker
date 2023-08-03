@@ -23,14 +23,14 @@ function xz_box_1($post){
        <div class="boxl"><span>纬度：</span> <input type="text" id="ypos" name="ypos" value="<?php echo esc_attr( $ypos ); ?>" placeholder="输入Y轴坐标"> </div>
 	  <div class="boxl"><span>标注图标样式</span>
             <div class="box-item">
-                <img src="<?php echo plugin_dir_url(__FILE__ )?>/assets/img/tubiao/t1.png"/>
+                <img src="<?php echo plugin_dir_url(__FILE__ )?>/assets/img/t1.png"/>
                 请选择样式
             </div>
             <ul class="picul">
 			<input id="pictype" name="pictype" type="hidden" value="1"/>
 			<?php for($i=2;$i<11;$i++){?>
                 <li class="picitem" data-id="<?php echo $i;?>">
-			<img src="<?php echo plugin_dir_url(__FILE__ )?>/assets/img/tubiao/t<?php echo $i?>.png"/>
+			<img src="<?php echo plugin_dir_url(__FILE__ )?>/assets/img/t<?php echo $i?>.png"/>
                    
                 </li>
 			<?php }?>
@@ -219,7 +219,7 @@ if(!empty($results)){
 		$title = get_post($id)->post_title;
 		$xpos=get_post_meta($id, "xpos", true);
 			$ypos=get_post_meta($id, "ypos", true);
-			$pictype=plugin_dir_url(__FILE__ )."/assets/img/tubiao/t".get_post_meta($id, "pictype", true).'.png';
+			$pictype=plugin_dir_url(__FILE__ )."/assets/img/t".get_post_meta($id, "pictype", true).'.png';
 			$zhaiyao=get_the_excerpt($id);
 	
 $contents.='
