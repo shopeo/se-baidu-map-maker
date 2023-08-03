@@ -9,15 +9,15 @@ function add_xz_box (){
 //在'add_meta_boxes'挂载 add_xz_box 函数
 add_action('add_meta_boxes','add_xz_box');
 function xz_box_1($post){
-	
-	
+
+
 	//显示设置区域的回调函数echo"add_meta_box 测试";
   $xpos = get_post_meta( $post->ID, 'xpos', true );
     $ypos = get_post_meta( $post->ID, 'ypos', true );
 
 ?>
  <label for="pos"></label>
-    
+
 	  <div class="box">
 	    <div class="boxl"><span>经度：</span> <input type="text" id="xpos" name="xpos" value="<?php echo esc_attr( $xpos ); ?>" placeholder="输入X轴坐标"></div>
        <div class="boxl"><span>纬度：</span> <input type="text" id="ypos" name="ypos" value="<?php echo esc_attr( $ypos ); ?>" placeholder="输入Y轴坐标"> </div>
@@ -31,11 +31,11 @@ function xz_box_1($post){
 			<?php for($i=2;$i<11;$i++){?>
                 <li class="picitem" data-id="<?php echo $i;?>">
 			<img src="<?php echo plugin_dir_url(__FILE__ )?>/assets/img/t<?php echo $i?>.png"/>
-                   
+
                 </li>
 			<?php }?>
             </ul>
-           </div>   
+           </div>
         </div>
 	<div id="ditu">
 		<div id="dituedit"></div>
@@ -46,11 +46,11 @@ function xz_box_1($post){
 		    //进入页面 初始化 位置tab页的地图
 			 initMap();
     function initMap() {
- 
+
         $("#dituedit").empty();
         var map = new BMap.Map("dituedit");
-		
-		
+
+
         //设置一个 默认的位置。
         var point = new BMap.Point(116.404, 39.915);
         map.centerAndZoom(point,11);
@@ -58,8 +58,8 @@ function xz_box_1($post){
 		 var scaleCtrl = new BMap.ScaleControl();  // 添加比例尺控件
     map.addControl(scaleCtrl);
   map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-	
-	
+
+
         var geolocation = new BMap.Geolocation();
         geolocation.getCurrentPosition(function (r) {
             if (this.getStatus() == BMAP_STATUS_SUCCESS) {
@@ -72,7 +72,7 @@ function xz_box_1($post){
             }
         }, {enableHighAccuracy: true});
         map.addEventListener("click", function (e) {
- 
+
             //获取当前点击 位置的经纬度，并显示在文本框中
             document.getElementById('xpos').value = e.point.lat;
             document.getElementById('ypos').value = e.point.lng;
@@ -81,9 +81,9 @@ function xz_box_1($post){
             var new_mk = new BMap.Marker(new_point);
             map.addOverlay(new_mk);
             map.panTo(new_point);
- 
- 
-       
+
+
+
         });
     }
 	</script>
@@ -123,10 +123,10 @@ function xz_box_1($post){
                 width:25px;
                 vertical-align: middle;
             }
-            
+
         </style>
-		
-		
+
+
         <script>
             var ul = document.querySelector(".picul");
 
@@ -138,13 +138,13 @@ function xz_box_1($post){
                 ul.style.display = "block";
                 e.stopPropagation();
             };
-		
-		
-		$(".picitem").click(function(){ 
-  var txt = $(this).html(); 
-  $(".box-item").html(txt); 
+
+
+		$(".picitem").click(function(){
+  var txt = $(this).html();
+  $(".box-item").html(txt);
  $("#pictype").val($(this).attr("data-id"));
- 
+
 });
 　　　　　　
 　　　　　　　　//点击document隐藏下拉框  选择框显示但不做选择时点击页面选择框隐藏
@@ -152,10 +152,10 @@ function xz_box_1($post){
                 ul.style.display = "none";
             }
         </script>
-	  
-	  
+
+
 	  </div>
-	   
+
 <?php
 }
 
@@ -163,7 +163,7 @@ function xz_box_1($post){
 add_action( 'save_post', 'save_meta_box' );
 function save_meta_box($post_id){
 
-  
+
     if ( ! isset( $_POST['xpos'] )||!isset($_POST['ypos']) ) {
         return;
     }
@@ -181,14 +181,14 @@ function myshortcode_function($atts, $content = null ){ // $atts 代表了 short
 
 
   extract(shortcode_atts(// 使用 extract 函数解析标签内的参数
-  array( 
+  array(
 "appk"=>get_option("appk")
   ), $atts));
 
   // 返回内容
 $contents='<style type="text/css">
 	body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
-	.myshortcode{height:400px;width:100%;}
+	.myshortcode{height:600px;width:100%;}
 	</style>
 	<script type="text/javascript" src="//api.map.baidu.com/api?type=webgl&v=1.0&ak='.$appk.'"></script>
 
@@ -200,7 +200,7 @@ $contents='<style type="text/css">
     // GL版命名空间为BMapGL
 	var map = new BMapGL.Map("allmap");    // 创建Map实例
 	map.centerAndZoom(new BMapGL.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
-	
+
 	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
 	map.setMapType(BMAP_SATELLITE_MAP);      // 设置地图类型为地球模式
 	 var scaleCtrl = new BMapGL.ScaleControl();  // 添加比例尺控件
@@ -221,7 +221,7 @@ if(!empty($results)){
 			$ypos=get_post_meta($id, "ypos", true);
 			$pictype=plugin_dir_url(__FILE__ )."/assets/img/t".get_post_meta($id, "pictype", true).'.png';
 			$zhaiyao=get_the_excerpt($id);
-	
+
 $contents.='
 // 创建点标记
 	var point'.$key.' = new BMapGL.Point('.$ypos.', '.$xpos.');
@@ -242,11 +242,11 @@ var infoWindow'.$key.' = new BMapGL.InfoWindow("'.$zhaiyao.'", opts'.$key.');
 // 点标记添加点击事件
 marker'.$key.'.addEventListener("click", function () {
     map.openInfoWindow(infoWindow'.$key.', point'.$key.'); // 开启信息窗口
-})';	
-		
-		
-		
-		
+})';
+
+
+
+
 	}
 }
 
@@ -255,9 +255,9 @@ $contents.='</script>';
 
 }
 
- 
 
-add_shortcode( "baidumap" , "myshortcode_function" ); 
+
+add_shortcode( "baidumap" , "myshortcode_function" );
 
 
 ?>
