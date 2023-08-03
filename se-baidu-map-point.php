@@ -42,16 +42,6 @@ if ( ! function_exists( 'se_baidu_map_point_deactivation' ) ) {
 register_deactivation_hook( __FILE__, 'se_baidu_map_point_deactivation' );
 
 
-//执行卸载挂钩
-function your_prefix_activate(){
-	register_uninstall_hook( __FILE__, 'your_prefix_uninstall' );
-}
-register_activation_hook( __FILE__, 'your_prefix_activate' );
-
-// And here goes the uninstallation function:
-function your_prefix_uninstall(){
-	//	codes to perform during unistallation
-}
 
 require_once plugin_dir_path(__FILE__) . 'functions.php';
 
