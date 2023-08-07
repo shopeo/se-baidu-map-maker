@@ -241,11 +241,11 @@ function myshortcode_function( $atts, $content = null ) { // $atts 代表了 sho
 	if ( ! empty( $results ) ) {
 		foreach ( $results as $key => $item ) {
 			$id      = $item->post_id;
-			$title   = '<a href=\'' . get_permalink( $id ) . '\' target=\'_blank\'>' . get_post( $id )->post_title . '</a>';
+			$title   = '<a href=\'' . get_permalink( $id ) . '\' target=\'_blank\'>' . htmlentities( get_post( $id )->post_title ) . '</a>';
 			$xpos    = get_post_meta( $id, "xpos", true );
 			$ypos    = get_post_meta( $id, "ypos", true );
 			$pictype = plugin_dir_url( __FILE__ ) . "/assets/img/t" . get_post_meta( $id, "pictype", true ) . '.png';
-			$zhaiyao = get_the_excerpt( $id );
+			$zhaiyao = htmlentities( get_the_excerpt( $id ) );
 
 			$contents .= '
 // 创建点标记
@@ -259,7 +259,7 @@ var marker' . $key . ' = new BMapGL.Marker(point' . $key . ',{
 map.addOverlay(marker' . $key . ');
 // 创建信息窗口
 var opts' . $key . ' = {
-    width: 200,
+    width: 220,
     height: 50,
     title: "' . $title . '"
 };
