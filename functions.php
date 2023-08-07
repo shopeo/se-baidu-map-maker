@@ -19,7 +19,7 @@ function xz_box_1( $post ) {
 	<label for="pos"></label>
 
 	<div class="box">
-		<div class="boxl"><span>经度：</span> <input type="text" id="xpos" name="xpos"
+		<div class="boxl"><span>经度：</span> <input  type="text" id="xpos" name="xpos"
 													value="<?php echo esc_attr( $xpos ); ?>" placeholder="输入X轴坐标">
 		</div>
 		<div class="boxl"><span>纬度：</span> <input type="text" id="ypos" name="ypos"
@@ -89,6 +89,39 @@ function xz_box_1( $post ) {
 
 
 			});
+		}
+		
+		       //输入框的值改变时触发
+            $("#xpos").on("input",function(e){
+                //获取input输入的值
+          var xpos=e.delegateTarget.value;
+		  var ypos=document.getElementById('ypos').value;
+		  reinitmap(xpos,ypos);
+            });
+			      //输入框的值改变时触发
+            $("#ypos").on("input",function(e){
+                //获取input输入的值
+				var xpos=document.getElementById('xpos').value;
+				var ypos=e.delegateTarget.value;
+             reinitmap(xpos,ypos);
+            });
+		function reinitmap(xpos,ypos)
+		{
+	
+$("#dituedit").empty();
+     map = new BMap.Map("dituedit");            // 创建Map实例
+        var point = new BMap.Point(ypos, xpos); // 创建点坐标
+
+        map.centerAndZoom(point, 11);
+        map.enableScrollWheelZoom(true);                 //启用滚轮放大缩小
+var scaleCtrl = new BMap.ScaleControl();  // 添加比例尺控件
+			map.addControl(scaleCtrl);
+var new_mk = new BMap.Marker(point);
+				map.addOverlay(new_mk);
+				map.panTo(point);
+
+
+			
 		}
 	</script>
 	<style>
