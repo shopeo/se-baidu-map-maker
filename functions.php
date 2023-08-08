@@ -19,7 +19,7 @@ function xz_box_1( $post ) {
 	<label for="pos"></label>
 
 	<div class="box">
-		<div class="boxl"><span>经度：</span> <input  type="text" id="xpos" name="xpos"
+		<div class="boxl"><span>经度：</span> <input type="text" id="xpos" name="xpos"
 													value="<?php echo esc_attr( $xpos ); ?>" placeholder="输入X轴坐标">
 		</div>
 		<div class="boxl"><span>纬度：</span> <input type="text" id="ypos" name="ypos"
@@ -91,7 +91,7 @@ function xz_box_1( $post ) {
 			});
 		}
 		
-		       //输入框的值改变时触发
+		      //输入框的值改变时触发
             $("#xpos").on("input",function(e){
                 //获取input输入的值
           var xpos=e.delegateTarget.value;
@@ -247,7 +247,9 @@ function myshortcode_function( $atts, $content = null ) { // $atts 代表了 sho
 	$contents = '<style type="text/css">
 	body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
 	.myshortcode{height:600px;width:100%;}
+	.mapbtn{display:inline-block;background:#000;color:#fff;width:100px;height:40px;padding:5px;line-height:40px;text-align:center;}
 	</style>
+	
 	<script type="text/javascript" src="//api.map.baidu.com/api?type=webgl&v=1.0&ak=' . $appk . '"></script>
 
 
@@ -255,6 +257,7 @@ function myshortcode_function( $atts, $content = null ) { // $atts 代表了 sho
 	<div id="allmap"></div>
 
 <script type="text/javascript">
+
     // GL版命名空间为BMapGL
 	var map = new BMapGL.Map("allmap");    // 创建Map实例
 	map.centerAndZoom(new BMapGL.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
@@ -267,6 +270,7 @@ function myshortcode_function( $atts, $content = null ) { // $atts 代表了 sho
     map.addControl(zoomCtrl);
 	 var navi3DCtrl = new BMapGL.NavigationControl3D();  // 添加3D控件
     map.addControl(navi3DCtrl);
+	
 	';
 
 	$sql     = "select distinct(post_id) from " . $wpdb->prefix . "postmeta  where (meta_key='xpos' or meta_key='ypos' )and meta_value>0";
@@ -274,12 +278,13 @@ function myshortcode_function( $atts, $content = null ) { // $atts 代表了 sho
 	if ( ! empty( $results ) ) {
 		foreach ( $results as $key => $item ) {
 			$id      = $item->post_id;
-			$title   = '<a href=\'' . get_permalink( $id ) . '\' target=\'_blank\'>' . get_post( $id )->post_title . '</a>';
+			$title= htmlentities( get_post( $id )->post_title );
+		
 			$xpos    = get_post_meta( $id, "xpos", true );
 			$ypos    = get_post_meta( $id, "ypos", true );
 			$pictype = plugin_dir_url( __FILE__ ) . "/assets/img/t" . get_post_meta( $id, "pictype", true ) . '.png';
-			$zhaiyao = get_the_excerpt( $id );
-
+			$zhaiyao ="<div style='height:50px;width:300px;overflow:auto;'>". htmlspecialchars(get_the_excerpt( $id ))."</div>";
+$zhaiyao.= "<div class='mapbtn' id='mapbtn".$id."'>查看详情</div>";
 			$contents .= '
 // 创建点标记
 	var point' . $key . ' = new BMapGL.Point(' . $ypos . ', ' . $xpos . ');
@@ -292,14 +297,55 @@ var marker' . $key . ' = new BMapGL.Marker(point' . $key . ',{
 map.addOverlay(marker' . $key . ');
 // 创建信息窗口
 var opts' . $key . ' = {
-    width: 200,
-    height: 50,
+    width: 400,
+    height: 150,
     title: "' . $title . '"
 };
 var infoWindow' . $key . ' = new BMapGL.InfoWindow("' . $zhaiyao . '", opts' . $key . ');
+
+
+	    
 // 点标记添加点击事件
+
 marker' . $key . '.addEventListener("click", function () {
+
     map.openInfoWindow(infoWindow' . $key . ', point' . $key . '); // 开启信息窗口
+
+		if (!infoWindow'.$key.'.isOpen()) {
+                //如果没有打开，则监听打开事件，获取按钮，添加事件
+			infoWindow'.$key.'.addEventListener("open", function () {
+				document.getElementById("mapbtn'.$id.'").addEventListener("touchstart", function () {
+		
+				
+				window.open("'.get_permalink( $id ).'", "_blank");
+			});
+			
+				document.getElementById("mapbtn'.$id.'").addEventListener("click", function () {
+		
+				
+				window.open("'.get_permalink( $id ).'", "_blank");
+			});
+			},true)
+		} else {//如果已经打开，直接获取按钮，添加事件
+			document.getElementById("mapbtn'.$id.'").addEventListener("touchstart", function () {
+		
+				
+				window.open("'.get_permalink( $id ).'", "_blank");
+			},true);
+			
+				document.getElementById("mapbtn'.$id.'").addEventListener("click", function () {
+		
+				
+				window.open("'.get_permalink( $id ).'", "_blank");
+			});
+		}
+
+	
+
+
+	
+	
+	
 })';
 
 
